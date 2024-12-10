@@ -49,7 +49,7 @@ public class Main {
 				}case "Posts" ->{
 					listadoPosts(conn);
 				}case "Likes" ->{
-					
+					listadoLikes(conn);
 				}default ->{
 					System.out.println("Tabla no encontrada.");
 				}
@@ -185,6 +185,51 @@ public class Main {
 				}
 				
 				ConsultasPosts.selectPostIdUsuario(conn, id);
+			} catch (SQLException e) {
+				System.out.println("Error");
+			}
+		}
+		
+		}
+		
+	}
+	
+	public static void listadoLikes(Connection conn) {
+		
+		int subOpc = 0;
+		int id = 0;
+		String username = "";
+		
+		System.out.println("¿Que quiere buscar?");
+		System.out.println("1. Todos");
+		System.out.println("2. Buscar por id");
+		System.out.println("3. Buscar por id de usuario");
+		System.out.println("4. Buscar por id de Post");
+		subOpc = sc.nextInt();
+		
+		switch(subOpc) {
+		
+		case 1 ->{
+			try {
+				ConsultasLikes.selectLikes(conn);
+			} catch (SQLException e) {
+				System.out.println("No se encontraron Likes");
+			}
+		}case 2 -> {
+			try {
+				System.out.println("Introduce el id: ");
+				id = sc.nextInt();
+				
+				ConsultasUsuario.selectUsuario(conn, id);
+			} catch (SQLException e) {
+				System.out.println("Error");
+			}
+		}case 3 ->{
+			try {
+				System.out.println("Introduce el username: ");
+				sc.nextLine();
+				username = sc.nextLine();
+				ConsultasUsuario.selectUsuario(conn, username);
 			} catch (SQLException e) {
 				System.out.println("Error");
 			}
